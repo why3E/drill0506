@@ -13,7 +13,7 @@ def load_resources():
     character = load_image('animation_sheet.png')
 
 
-def handle_events():
+def handle_events(): # 종료 입력 처리 함수
     global running
     events = get_events()
     for event in events:
@@ -24,7 +24,7 @@ def handle_events():
     pass
 
 
-def reset_world():
+def reset_world(): # 월드 초기화
     global running, cx, cy, frame
     global hx, hy
     global sx, sy
