@@ -13,7 +13,7 @@ def load_resources():
     character = load_image('animation_sheet.png')
 
 
-def handle_events(): # 종료 입력 처리 함수
+def handle_events():  # 종료 입력 처리 함수
     global running
     global mx, my
     events = get_events()
@@ -21,17 +21,18 @@ def handle_events(): # 종료 입력 처리 함수
         if event.type == SDL_QUIT:
             running = False
         elif event.type == SDL_MOUSEMOTION:
-            mx, my = event.x , TUK_HEIGHT - 1 - event.y
+            mx, my = event.x, TUK_HEIGHT - 1 - event.y
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             running = False
     pass
 
 
-def reset_world(): # 월드 초기화
+def reset_world():  # 월드 초기화
     global running, cx, cy, frame
     global t
     global action
     global mx, my
+    global points
 
     mx, my = 0, 0
     running = True
@@ -39,7 +40,9 @@ def reset_world(): # 월드 초기화
     frame = 0
     action = 3
 
-    #set_new_target_arrow()
+    points = [(100, 900), (1200, 800), (500, 100)]
+
+    # set_new_target_arrow()
 
 
 def set_new_target_arrow():
@@ -52,9 +55,12 @@ def set_new_target_arrow():
     action = 1 if sx < hx else 0
     frame = 0
 
+
 def render_world():
     clear_canvas()
     TUK_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
+    for p in points:
+        arrow.draw(p[0], p[1])
     arrow.draw(mx, my)
     character.clip_draw(frame * 100, 100 * action, 100, 100, cx, cy)
     update_canvas()
@@ -68,11 +74,11 @@ def update_world():
 
     frame = (frame + 1) % 8
 
-    #if t <= 1.0:
+    # if t <= 1.0:
     #    cx = (1 - t) * sx + t * hx  # cx는 시작 x와 끝 x를 1-t : t 의 비율로 섞은 위치
     #    cy = (1 - t) * sy + t * hy
     #    t += 0.001
-    #else:
+    # else:
     #    cx, cy = hx, hy # 캐릭터 위치를 목적지 위치와 강제로 정확히 일치시킴
     #    set_new_target_arrow()
 
